@@ -56,7 +56,7 @@ public class BearMovement : MonoBehaviour
         //Check if hit something that should kill it
         if (collision.gameObject.layer == LayerMask.GetMask("Walls"))
         {
-        }        
+        }
         if (bearState == BearState.Scared && !collision.gameObject.CompareTag("Crate"))
         {
             //TODO play bump sound/anim maybe wait untill anim is done before it starts tracking again
@@ -242,14 +242,7 @@ public class BearMovement : MonoBehaviour
         //    {
         //        interests.Add(hit.collider);
         //    }
-        //}
-
-        //If found no interests 
-        if (interests.Length == 0)
-        {
-            if (!(bearState == BearState.Idle)) ReturnToIdle();
-            return;
-        }
+        //}      
 
         BearInterest mostInteresting = null;
         foreach (Collider2D interest in interests)
@@ -289,6 +282,43 @@ public class BearMovement : MonoBehaviour
                 distractionCollider = interest;
             }
         }
+        layerMask = LayerMask.GetMask("FishLayer");
+        interests = Physics2D.OverlapCircleAll(transform.position, 100, layerMask);
+        foreach (Collider2D interest in interests)
+        {
+            //Gets the BearInterest component, which holds the value of how interesting the object is
+            BearInterest bearInterest;
+            if (!interest.gameObject.TryGetComponent<BearInterest>(out bearInterest))
+            {
+                Debug.LogError("Didn't attach BearInterest script to " + interest.gameObject.name);
+            }
+            //Ignore if is in air
+            if (bearInterest.isInActive) continue;
+
+            //If has no mostInteresting yet
+            if (!mostInteresting)
+            {
+                mostInteresting = bearInterest;
+                lastDistractedPosition = interest.ClosestPoint(transform.position);
+                distractionCollider = interest;
+            }
+
+            //If current point is more interesting than previous
+            if (bearInterest.interest > mostInteresting.interest)
+            {
+                mostInteresting = bearInterest;
+                lastDistractedPosition = interest.ClosestPoint(transform.position);
+                distractionCollider = interest;
+            }
+        }
+
+        //If found no interests 
+        if (interests.Length == 0)
+        {
+            if (!(bearState == BearState.Idle)) ReturnToIdle();
+            return;
+        }
+
         if (mostInteresting == null)
         {
             if (!(bearState == BearState.Idle)) ReturnToIdle();
