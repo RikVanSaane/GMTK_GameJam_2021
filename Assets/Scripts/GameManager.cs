@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public int currentLevel = 0;
+    public int currentLevel = 1;
 
     protected override void Init()
     {

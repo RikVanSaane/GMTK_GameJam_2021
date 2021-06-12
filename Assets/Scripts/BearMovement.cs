@@ -17,6 +17,7 @@ public class BearMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D bearCollider;
     private Animator bearAnimator;
+    private IEnumerator idlingRoutine;
 
     //Movement variables
     private Vector2 lastScarePosition;
@@ -35,6 +36,7 @@ public class BearMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bearCollider = GetComponent<Collider2D>();
         bearAnimator = GetComponent<Animator>();
+        idlingRoutine = IdlingLoop();
 
         ReturnToIdle();
     }
@@ -65,14 +67,15 @@ public class BearMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fish"))
         {
+            if (collision.gameObject.GetComponent<BearInterest>().isInActive) return;
             StartCoroutine(EatFish(collision.gameObject));
         }
     }
     public void Die()
     {
         //TODO play anim/sound and call GameManager.GameOver()
-        Debug.Log("RIP");
-        Debug.Break();
+        bearState = BearState.Idle;
+        GameObject.Find("FinishPoint").GetComponent<FinishPoint>().ReloadLevel();
     }
     public void GetBearSprayed(Vector2 direction)
     {
@@ -135,7 +138,7 @@ public class BearMovement : MonoBehaviour
     private void ReturnToIdle()
     {
         bearState = BearState.Idle;
-        StartCoroutine(IdlingLoop());
+        StartCoroutine(idlingRoutine);
     }
     private IEnumerator IdlingLoop()
     {
@@ -292,7 +295,7 @@ public class BearMovement : MonoBehaviour
             return;
         }
         //Stop the IdlingLoop
-        StopCoroutine(IdlingLoop());
+        StopCoroutine(idlingRoutine);
         bearState = BearState.Distracted;
 
         //If distraction check if player has any fish left, if not game over because cant lure away

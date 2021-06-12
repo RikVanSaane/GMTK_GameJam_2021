@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
+    [SerializeField] private Sprite brokenSprite;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Test if is bear
@@ -14,6 +16,6 @@ public class Crate : MonoBehaviour
         //TODO play break anim/sound
 
         GetComponent<Collider2D>().enabled = false;
-        GetComponent<SpriteRenderer>().color = Color.green;
+        GetComponent<SpriteRenderer>().sprite = brokenSprite;
     }
 }
