@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class BearMovement : MonoBehaviour
 {
+    public float distractionRange = 5f;
+    public BearState bearState;
+
     [SerializeField] private float wanderSpeed = 1f;
     [SerializeField] private float distractionSpeed = 3f;
-    [SerializeField] private float distractionRange = 5f;
+    [SerializeField] private float visionCone = 180f;
     [SerializeField] private float sniffRange = 0.5f;
 
     private GameObject player;
     private Rigidbody2D rb;
-    private BearState bearState;
 
     private Vector2 lastScarePosition;
     private Vector2 lastDistractedPosition;
-    private enum BearState
+    public enum BearState
     {
         Idle, BeingPulled, Distracted, Scared
     }
@@ -38,6 +40,32 @@ public class BearMovement : MonoBehaviour
             case BearState.Distracted: ChaseDistraction(); break;
             case BearState.Scared: RunAway(); break;
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Check if hit something that should kill it
+        if (collision.gameObject.layer == LayerMask.GetMask("Walls"))
+        {
+        }
+        if (bearState == BearState.Scared && !collision.gameObject.CompareTag("Crate"))
+        {
+            //TODO play bump sound/anim maybe wait untill anim is done before it starts tracking again
+            ReturnToIdle();
+        }
+    }
+    public void Die()
+    {
+        //TODO play anim/sound and call GameManager.GameOver()
+        Debug.Log("RIP");
+        Debug.Break();
+    }
+    public void GetBearSprayed(Vector2 direction)
+    {
+        StopAllCoroutines();
+        bearState = BearState.Scared;
+        direction = (Vector2)transform.position + direction * 100;
+        lastScarePosition = direction;
+        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(direction));
     }
     private void Idle()
     {
@@ -63,6 +91,8 @@ public class BearMovement : MonoBehaviour
     private void ChaseDistraction()
     {
         //Run towards thing that attracted bear
+        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(lastDistractedPosition - (Vector2)transform.position));
+        //TODO if we add pathfinding use it here
         rb.MovePosition(Vector2.MoveTowards(transform.position, lastDistractedPosition, Time.deltaTime * distractionSpeed));
 
         //If in range do action (eat fish, scratch back)
@@ -79,22 +109,34 @@ public class BearMovement : MonoBehaviour
     }
     private IEnumerator IdlingLoop()
     {
+        //If player is really close start moving towards player
         while (true)
         {
-            //Decide thing to do
-            switch (Random.Range(0, 3))
+            if((player.transform.position - transform.position).sqrMagnitude < sniffRange)
             {
-                case 0: yield return SniffPlayer();  break;
-                case 1: yield return TakeNap();  break;
-                case 2: yield return WanderAround();  break;
+                transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector((Vector2)player.transform.position - (Vector2)transform.position));
+                rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
             }
+            yield return null;
         }
+
+        //while (true)
+        //{
+        //    //Decide thing to do
+        //    switch (Random.Range(0, 3))
+        //    {
+        //        case 0: yield return SniffPlayer(); break;
+        //        case 1: yield return TakeNap(); break;
+        //        case 2: yield return WanderAround(); break;
+        //    }
+        //}
     }
     private IEnumerator SniffPlayer()
     {
         //Move towards player untill in sniffrange
-        while((player.transform.position - transform.position).sqrMagnitude > sniffRange)
+        while ((player.transform.position - transform.position).sqrMagnitude > sniffRange)
         {
+            transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(player.transform.position - transform.position));
             //TODO if we add pathfinding use it here
             rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
             yield return null;
@@ -110,14 +152,32 @@ public class BearMovement : MonoBehaviour
         //Yawn
 
         //Take nap
+        yield return new WaitForSeconds(2f);
 
         yield break;
     }
     private IEnumerator WanderAround()
     {
-        //Find random position in player range
+        //Find random position in player range while that position is reachable
+        //TODO only finds position directly in view, change if using pathfinding
+        Vector2 randomPos;
+        int layerMask = LayerMask.GetMask("BearInterests", "Walls");
+        do
+        {
+            randomPos = new Vector2(Random.Range(-distractionRange, distractionRange), Random.Range(-distractionRange, distractionRange)).normalized * distractionRange;
+        } while (Physics2D.Raycast(transform.position, randomPos, distractionRange, layerMask));
 
+        //Convert to worldspace
+        randomPos = (Vector2)player.transform.position + randomPos;
+
+        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(randomPos - (Vector2)transform.position));
         //Move towards position untill reached
+        while ((randomPos - (Vector2)transform.position).sqrMagnitude > sniffRange)
+        {
+            //TODO if we add pathfinding use it here
+            rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
+            yield return null;
+        }
 
         yield break;
     }
@@ -125,20 +185,41 @@ public class BearMovement : MonoBehaviour
     private void RunAway()
     {
         //Run away from thing that scared bear untill no longer in scare range of object + small scare timer
-
+        rb.MovePosition(Vector2.MoveTowards(transform.position, lastScarePosition, Time.deltaTime * distractionSpeed));
     }
     private void CheckForDistractions()
     {
+        if (bearState == BearState.Scared) return;
         //Overlap circle with layermask for BearInterests layer (this layer contains scares and distractions
         //Distractions have priorities
         //Scares take priority
         LayerMask layerMask = LayerMask.GetMask("BearInterests");
         Collider2D[] interests = Physics2D.OverlapCircleAll(transform.position, distractionRange, layerMask);
+        //List<Collider2D> interests = new List<Collider2D>();
+        //int raysToCast = Mathf.CeilToInt(visionCone / 10);
+        //float angleStepSize = visionCone / raysToCast;
+        //for (int i = 0; i < raysToCast + 1; i++)
+        //{
+        //    float localAngle = angleStepSize * i;
+        //    float worldSpaceAngle = -GetAngleFromVector(transform.right) + 90;
+        //    localAngle = worldSpaceAngle + localAngle - visionCone / 2;
+        //    Vector2 rayDirection = VecFromAngle(localAngle);
+        //    RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, distractionRange, layerMask);
+        //    if (hit)
+        //    {
+        //        interests.Add(hit.collider);
+        //    }
+        //}
 
-        if (interests.Length == 0) return;
+        //If found no interests 
+        if (interests.Length == 0)
+        {
+            if(!(bearState == BearState.Idle)) ReturnToIdle();
+            return;
+        }
 
         BearInterest mostInteresting = null;
-        foreach(Collider2D interest in interests)
+        foreach (Collider2D interest in interests)
         {
             //Gets the BearInterest component, which holds the value of how interesting the object is
             BearInterest bearInterest;
@@ -155,6 +236,10 @@ public class BearMovement : MonoBehaviour
                 StopAllCoroutines();
                 return;
             }
+
+            //Ignore if is in air
+            if (bearInterest.isInActive) continue;
+
             //If has no mostInteresting yet
             if (!mostInteresting)
             {
@@ -169,6 +254,11 @@ public class BearMovement : MonoBehaviour
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
             }
         }
+        if(mostInteresting == null)
+        {
+            if (!(bearState == BearState.Idle)) ReturnToIdle();
+            return;
+        }
         //Stop the IdlingLoop
         StopAllCoroutines();
         bearState = BearState.Distracted;
@@ -177,9 +267,32 @@ public class BearMovement : MonoBehaviour
 
     }
 
+    private float GetAngleFromVector(Vector2 deltaVector)
+    {
+        return Mathf.Atan2(deltaVector.y, deltaVector.x) * Mathf.Rad2Deg;
+    }
+
+    private static Vector2 VecFromAngle(float angle)
+    {
+        return new Vector2(Mathf.Sin(Mathf.Deg2Rad * angle), Mathf.Cos(Mathf.Deg2Rad * angle));
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distractionRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, sniffRange/sniffRange);
+
+        //int raysToCast = Mathf.CeilToInt(visionCone / 10);
+        //float angleStepSize = visionCone / raysToCast;
+        //for (int i = 0; i < raysToCast + 1; i++)
+        //{
+        //    float localAngle = angleStepSize * i;
+        //    float worldSpaceAngle = -GetAngleFromVector(transform.right)+90;
+        //    localAngle = worldSpaceAngle + localAngle - visionCone / 2;
+        //    Vector2 rayDirection = VecFromAngle(localAngle);
+        //    Gizmos.DrawLine(transform.position, (Vector2)transform.position + rayDirection * distractionRange);
+        //}
     }
 }
