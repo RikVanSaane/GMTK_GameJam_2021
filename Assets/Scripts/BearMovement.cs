@@ -94,8 +94,8 @@ public class BearMovement : MonoBehaviour
     {
         //TODO play munching sounds
         bearAnimator.Play("Idle");
-        yield return new WaitForSeconds(0.5f);
         Destroy(fish);
+        yield return new WaitForSeconds(0.5f);
         ReturnToIdle();
         yield break;
     }

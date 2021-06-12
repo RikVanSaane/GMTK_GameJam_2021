@@ -26,12 +26,14 @@ public class PlayerMovement : MonoBehaviour
     private bool beingPulled;
     private LineRenderer previewLine;
     private bool isDead;
+    private Animator animator;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         bear = GameObject.Find("Bear").GetComponent<BearMovement>();
         previewLine = GetComponent<LineRenderer>();
+        animator = GetComponent<Animator>();
 
         fishText = GameObject.Find("FishText").GetComponent<TMP_Text>();
         sprayText = GameObject.Find("SprayText").GetComponent<TMP_Text>();
@@ -64,14 +66,14 @@ public class PlayerMovement : MonoBehaviour
             if ((mousePos - (Vector2)transform.position).magnitude > fishThrowRange)
             {
                 previewLine.startColor = Color.red;
-                previewLine.endColor = Color.red;                
+                previewLine.endColor = Color.red;
             }
             else
             {
                 previewLine.startColor = Color.green;
                 previewLine.endColor = Color.green;
             }
-        } 
+        }
         else if (heldSpraySR.enabled)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -92,12 +94,6 @@ public class PlayerMovement : MonoBehaviour
         //Cant move while being pulled
         if (beingPulled) return;
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector2 inputVector = new Vector2(horizontal, vertical).normalized;
-
-        //Maybe allow free movement while in range of bear, and use AddForce while rope is tight
-        //TODO replace this with some sort of check that rope is tight, for when rope is around a corner
         if (Vector2.Distance(transform.position, bear.transform.position) > bear.distractionRange)
         {
             //Get pulled back to bear
@@ -105,10 +101,31 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(PullToBear());
             //rb.MovePosition(transform.position + -(transform.position - bear.transform.position) * Time.deltaTime * pullBackStrength);
         }
-        else
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        if (horizontal == 0 && vertical == 0)
         {
-            rb.MovePosition((Vector2)transform.position + inputVector * Time.deltaTime * maxMoveSpeed);
+            //If isnt playing idle play idle
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) animator.Play("Idle");
+            else return;
         }
+        Vector2 inputVector = new Vector2(horizontal, vertical).normalized;
+
+
+        //Maybe allow free movement while in range of bear, and use AddForce while rope is tight
+        //TODO replace this with some sort of check that rope is tight, for when rope is around a corner
+
+        rb.MovePosition((Vector2)transform.position + inputVector * Time.deltaTime * maxMoveSpeed);
+
+        float angle = Vector3.Angle(inputVector, transform.right);
+        float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross(inputVector, transform.right)));
+        float signedAngle = angle * sign;
+        float lookAngle = (signedAngle + 180) % 360;
+        int index = Mathf.RoundToInt(lookAngle / 90);
+        if (index == 4) index = 0;
+        animator.Play("Walk" + index);
+
     }
     public void Die()
     {
@@ -180,7 +197,8 @@ public class PlayerMovement : MonoBehaviour
         //Apply spring like force to player to "Bounce" back to bear
         //rb.AddForce((transform.position - bear.transform.position) * -pullBackStrength, ForceMode2D.Force);
 
-        //Play "Flying" anim on player to show he is being pulled back towards bear
+        //TODO Play "Flying" anim on player to show he is being pulled back towards bear
+        animator.Play("Idle");
 
         while (Vector2.Distance(transform.position, bear.transform.position) > bear.distractionRange)
         {

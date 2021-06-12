@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4882993794841130574}
   - component: {fileID: 4882993794841130569}
   - component: {fileID: 4882993794841130568}
+  - component: {fileID: 6014175158837813175}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Crate
@@ -123,3 +124,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brokenSprite: {fileID: -4844405777283405807, guid: c0503417dd9a1dc47ad6e44ef0b8ffcb, type: 3}
+--- !u!114 &6014175158837813175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882993794841130571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -1.3983841, y: -0.18868807, z: 0}
+  - {x: -1.0942521, y: -0.32220772, z: 0.00000023841858}
+  - {x: -1.0942521, y: -1.0278636, z: 0.00000023841858}
+  - {x: -0.70222116, y: -1.4534974, z: 0.00000023841858}
+  - {x: 1.1519642, y: -1.4655893, z: 0}
+  - {x: 1.1631656, y: 1.2639734, z: 0}
+  - {x: -1.3647814, y: 1.2751743, z: 0}
+  m_ShapePathHash: -409536673
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -53196
