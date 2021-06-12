@@ -25,9 +25,11 @@ public class BearTrap : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerMovement>().Die();
+            GetComponent<SpriteRenderer>().sprite = disarmedSprite;
         } else if (collision.gameObject.CompareTag("Bear"))
         {
             collision.gameObject.GetComponent<BearMovement>().Die();
+            GetComponent<SpriteRenderer>().sprite = disarmedSprite;
         }
     }
 }

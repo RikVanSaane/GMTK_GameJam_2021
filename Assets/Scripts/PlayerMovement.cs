@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer heldSpraySR;
     [SerializeField] private GameObject fishPrefab;
 
+    private TMP_Text fishText;
+    private TMP_Text sprayText;
+
     private Rigidbody2D rb;
     private BearMovement bear;
     private bool beingPulled;
@@ -26,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bear = GameObject.Find("Bear").GetComponent<BearMovement>();
         previewLine = GetComponent<LineRenderer>();
+
+        fishText = GameObject.Find("FishText").GetComponent<TMP_Text>();
+        sprayText = GameObject.Find("SprayText").GetComponent<TMP_Text>();
+        fishText.text = fishRemaining.ToString();
+        sprayText.text = bearSpraysRemaining.ToString();
     }
     void Update()
     {
@@ -133,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
                 bear.GetBearSprayed(direction);
 
                 bearSpraysRemaining--;
+                sprayText.text = bearSpraysRemaining.ToString();
                 if (bearSpraysRemaining == 0)
                 {
                     heldSpraySR.enabled = false;
@@ -152,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
             thrownFish.GetComponent<BearInterest>().MoveToPos(mousePos);
 
             fishRemaining--;
+            fishText.text = fishRemaining.ToString();
             if (fishRemaining == 0)
             {
                 heldFishSR.enabled = false;

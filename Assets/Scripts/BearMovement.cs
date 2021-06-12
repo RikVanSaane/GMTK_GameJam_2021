@@ -12,11 +12,17 @@ public class BearMovement : MonoBehaviour
     [SerializeField] private float visionCone = 180f;
     [SerializeField] private float sniffRange = 0.5f;
 
+    //Component references
     private GameObject player;
     private Rigidbody2D rb;
+    private Collider2D bearCollider;
+    private Animator bearAnimator;
 
+    //Movement variables
     private Vector2 lastScarePosition;
     private Vector2 lastDistractedPosition;
+    private Collider2D distractionCollider;
+
     public enum BearState
     {
         Idle, BeingPulled, Distracted, Scared
@@ -27,6 +33,8 @@ public class BearMovement : MonoBehaviour
         sniffRange *= sniffRange; //For use in sqrMagnitude (micro optimization)
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
+        bearCollider = GetComponent<Collider2D>();
+        bearAnimator = GetComponent<Animator>();
 
         ReturnToIdle();
     }
@@ -46,11 +54,18 @@ public class BearMovement : MonoBehaviour
         //Check if hit something that should kill it
         if (collision.gameObject.layer == LayerMask.GetMask("Walls"))
         {
-        }
+        }        
         if (bearState == BearState.Scared && !collision.gameObject.CompareTag("Crate"))
         {
             //TODO play bump sound/anim maybe wait untill anim is done before it starts tracking again
             ReturnToIdle();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Fish"))
+        {
+            StartCoroutine(EatFish(collision.gameObject));
         }
     }
     public void Die()
@@ -66,6 +81,14 @@ public class BearMovement : MonoBehaviour
         direction = (Vector2)transform.position + direction * 100;
         lastScarePosition = direction;
         transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(direction));
+    }
+    private IEnumerator EatFish(GameObject fish)
+    {
+        //TODO play munching sounds
+        yield return new WaitForSeconds(0.5f);
+        Destroy(fish);
+        ReturnToIdle();
+        yield break;
     }
     private void Idle()
     {
@@ -93,12 +116,19 @@ public class BearMovement : MonoBehaviour
         //Run towards thing that attracted bear
         transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(lastDistractedPosition - (Vector2)transform.position));
         //TODO if we add pathfinding use it here
-        rb.MovePosition(Vector2.MoveTowards(transform.position, lastDistractedPosition, Time.deltaTime * distractionSpeed));
+        if (!bearCollider.IsTouching(distractionCollider))
+        {
+            rb.MovePosition(Vector2.MoveTowards(transform.position, lastDistractedPosition, Time.deltaTime * distractionSpeed));
+        }
+        else
+        {
+            bearAnimator.SetTrigger("Eating");
+        }
 
         //If in range do action (eat fish, scratch back)
+        //Need to know wether its a thrown fish or Honey/Fish pond
 
-
-        //If fish is eatn
+        //If fish is eaten
         //ReturnToIdle();
     }
 
@@ -112,7 +142,7 @@ public class BearMovement : MonoBehaviour
         //If player is really close start moving towards player
         while (true)
         {
-            if((player.transform.position - transform.position).sqrMagnitude < sniffRange)
+            if ((player.transform.position - transform.position).sqrMagnitude < sniffRange)
             {
                 transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector((Vector2)player.transform.position - (Vector2)transform.position));
                 rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
@@ -214,7 +244,7 @@ public class BearMovement : MonoBehaviour
         //If found no interests 
         if (interests.Length == 0)
         {
-            if(!(bearState == BearState.Idle)) ReturnToIdle();
+            if (!(bearState == BearState.Idle)) ReturnToIdle();
             return;
         }
 
@@ -245,6 +275,7 @@ public class BearMovement : MonoBehaviour
             {
                 mostInteresting = bearInterest;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
+                distractionCollider = interest;
             }
 
             //If current point is more interesting than previous
@@ -252,15 +283,16 @@ public class BearMovement : MonoBehaviour
             {
                 mostInteresting = bearInterest;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
+                distractionCollider = interest;
             }
         }
-        if(mostInteresting == null)
+        if (mostInteresting == null)
         {
             if (!(bearState == BearState.Idle)) ReturnToIdle();
             return;
         }
         //Stop the IdlingLoop
-        StopAllCoroutines();
+        StopCoroutine(IdlingLoop());
         bearState = BearState.Distracted;
 
         //If distraction check if player has any fish left, if not game over because cant lure away
@@ -282,7 +314,7 @@ public class BearMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distractionRange);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, sniffRange/sniffRange);
+        Gizmos.DrawWireSphere(transform.position, sniffRange / sniffRange);
 
         //int raysToCast = Mathf.CeilToInt(visionCone / 10);
         //float angleStepSize = visionCone / raysToCast;
