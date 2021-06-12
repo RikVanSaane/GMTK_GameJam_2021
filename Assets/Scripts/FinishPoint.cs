@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishPoint : MonoBehaviour
 {
@@ -15,11 +16,14 @@ public class FinishPoint : MonoBehaviour
             if (isFading) return; //so if bear and player enter hatch you dont skip a level
             isFading = true;
             GameManager.Instance.currentLevel++;
+            //"Temp" fix to skip main menu stuff, if is in level3, load level 4
+            if (SceneManager.GetActiveScene().name == "Level3") GameManager.Instance.currentLevel = 4;
             GameManager.Instance.StartFadeToNextLevel();
         }
     }
     public void ReloadLevel()
     {
+        isFading = true;
         GameManager.Instance.StartFadeToNextLevel();
     }
 }

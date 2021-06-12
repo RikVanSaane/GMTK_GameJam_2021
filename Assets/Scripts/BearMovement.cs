@@ -196,6 +196,7 @@ public class BearMovement : MonoBehaviour
         }
         layerMask = LayerMask.GetMask("FishLayer");
         interests = Physics2D.OverlapCircleAll(transform.position, 100, layerMask);
+        float closestDist = 0;
         foreach (Collider2D interest in interests)
         {
             //Gets the BearInterest component, which holds the value of how interesting the object is
@@ -206,20 +207,23 @@ public class BearMovement : MonoBehaviour
             }
             //Ignore if is in air
             if (bearInterest.isInActive) continue;
-           
+
+            float thisDist = Vector2.Distance(bearInterest.transform.position, transform.position);
             //If has no mostInteresting yet
             if (!mostInteresting)
             {
                 mostInteresting = bearInterest;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
                 distractionCollider = interest;
+                closestDist = thisDist;
+                continue;
             }
 
-            //TODO Some sort of closest check as the value will all be the same
             //If current point is more interesting than previous
-            if (bearInterest.interest > mostInteresting.interest)
+            if (thisDist < closestDist)
             {
                 mostInteresting = bearInterest;
+                closestDist = thisDist;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
                 distractionCollider = interest;
             }

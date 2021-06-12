@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveSpeed: 18
-  pullBackStrength: 1
-  fishRemaining: 12
+  pullBackStrength: 2
+  fishRemaining: 8
   bearSpraysRemaining: 1
   fishThrowRange: 30
   heldFishSR: {fileID: 8028996698896151214}
@@ -289,7 +289,7 @@ MonoBehaviour:
   - {x: -0.47995758, y: 0.22697401, z: 0}
   m_ShapePathHash: -193071467
   m_Mesh: {fileID: 0}
-  m_InstanceId: -115492
+  m_InstanceId: -133466
 --- !u!1 &8028996698320725191
 GameObject:
   m_ObjectHideFlags: 0
