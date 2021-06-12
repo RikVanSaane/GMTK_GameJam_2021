@@ -3,12 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fish
+  - Bear
+  - Crate
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BearInterests
   - Water
   - UI
   - 
