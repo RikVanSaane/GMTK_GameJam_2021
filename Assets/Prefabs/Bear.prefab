@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337f9c125ac09dc40a99014a68af5fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distractionRange: 5
+  distractionRange: 3
   bearState: 0
   wanderSpeed: 1
   distractionSpeed: 12
@@ -253,8 +253,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 5
-  m_PointLightOuterRadius: 6
+  m_PointLightInnerRadius: 3
+  m_PointLightOuterRadius: 4
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4681587604071870467}
   - component: {fileID: 4681587604071870469}
   - component: {fileID: 4681587604071870468}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: FishPrefab
   m_TagString: Fish
   m_Icon: {fileID: 0}
