@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isScary: 0
   interest: 9001
+  isInActive: 0
   speed: 15
 --- !u!212 &4681587604071870469
 SpriteRenderer:
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 1, b: 0.9529412, a: 1}
   m_FlipX: 0
