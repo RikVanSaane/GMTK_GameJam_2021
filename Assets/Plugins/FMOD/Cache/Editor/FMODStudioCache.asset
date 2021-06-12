@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637590371738421349
+  lastModified: 637590259521685491
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637590371738430893
+  lastModified: 637590259521695493
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -61,5 +61,5 @@ MonoBehaviour:
   - {fileID: -7643978609014808190}
   StringsBanks:
   - {fileID: -5720134474101516847}
-  stringsBankWriteTime: 637590371738430893
+  stringsBankWriteTime: 637590259521695493
   cacheVersion: 6

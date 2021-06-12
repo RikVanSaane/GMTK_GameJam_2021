@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private BearMovement bear;
     private bool beingPulled;
     private LineRenderer previewLine;
+    private bool isDead;
 
     private void Start()
     {
@@ -39,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if (isDead) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ToggleFish();
@@ -110,8 +113,8 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         //TODO play die anim/sound and call GameManager.GameOver
-        Debug.Log("RIP");
-        Debug.Break();
+        isDead = true;
+        GameObject.Find("FinishPoint").GetComponent<FinishPoint>().ReloadLevel();
     }
     private void ToggleFish()
     {
