@@ -50,11 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c6b62df5de7b3488686aba67831cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveSpeed: 10
+  maxMoveSpeed: 12
   pullBackStrength: 1
   fishRemaining: 8
   bearSpraysRemaining: 1
-  fishThrowRange: 6
+  fishThrowRange: 20
   heldFishSR: {fileID: 8028996698896151214}
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
@@ -273,7 +273,7 @@ MonoBehaviour:
   - {x: -0.4752748, y: 0.36880732, z: 0}
   m_ShapePathHash: -595923227
   m_Mesh: {fileID: 0}
-  m_InstanceId: -4042
+  m_InstanceId: -1418
 --- !u!1 &8028996698320725191
 GameObject:
   m_ObjectHideFlags: 0

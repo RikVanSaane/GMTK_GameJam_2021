@@ -17,12 +17,13 @@ public class BearMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D bearCollider;
     private Animator bearAnimator;
-    private IEnumerator idlingRoutine;
 
     //Movement variables
     private Vector2 lastScarePosition;
     private Vector2 lastDistractedPosition;
     private Collider2D distractionCollider;
+    private Collider2D oldDistractionCollider;
+    private Quaternion bearRotation;
 
     public enum BearState
     {
@@ -36,7 +37,6 @@ public class BearMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bearCollider = GetComponent<Collider2D>();
         bearAnimator = GetComponent<Animator>();
-        idlingRoutine = IdlingLoop();
 
         ReturnToIdle();
     }
@@ -45,8 +45,6 @@ public class BearMovement : MonoBehaviour
         CheckForDistractions();
         switch (bearState)
         {
-            case BearState.Idle: Idle(); break;
-            case BearState.BeingPulled: BeingPulled(); break;
             case BearState.Distracted: ChaseDistraction(); break;
             case BearState.Scared: RunAway(); break;
         }
@@ -83,41 +81,28 @@ public class BearMovement : MonoBehaviour
         bearState = BearState.Scared;
         direction = (Vector2)transform.position + direction * 100;
         lastScarePosition = direction;
-        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(direction));
+        //transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(direction));
+        float angle = Vector3.Angle(direction, transform.right);
+        float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross(direction, transform.right)));
+        float signedAngle = angle * sign;
+        float lookAngle = (signedAngle + 180) % 360;
+        int index = Mathf.RoundToInt(lookAngle / 90);
+        if (index == 4) index = 0;
+        bearAnimator.Play("Walk" + index);
     }
     private IEnumerator EatFish(GameObject fish)
     {
         //TODO play munching sounds
+        bearAnimator.Play("Idle");
         yield return new WaitForSeconds(0.5f);
         Destroy(fish);
         ReturnToIdle();
         yield break;
     }
-    private void Idle()
-    {
-        //Unused as we use IdlingLoop now
-
-        //Alternate between actions:
-        //Take small nap
-        //Wander to position
-        //sniff player
-        //switch (Random.Range(0, 3))
-        //{
-        //    case 1: //nap
-        //}
-
-        //Every x seconds Pick random position in player range to move to
-
-    }
-    private void BeingPulled()
-    {
-        //Stop idling, and move with player
-        //StopAllCoroutines();
-    }
     private void ChaseDistraction()
     {
         //Run towards thing that attracted bear
-        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(lastDistractedPosition - (Vector2)transform.position));
+
         //TODO if we add pathfinding use it here
         if (!bearCollider.IsTouching(distractionCollider))
         {
@@ -138,81 +123,8 @@ public class BearMovement : MonoBehaviour
     private void ReturnToIdle()
     {
         bearState = BearState.Idle;
-        StartCoroutine(idlingRoutine);
-    }
-    private IEnumerator IdlingLoop()
-    {
-        //If player is really close start moving towards player
-        while (true)
-        {
-            if ((player.transform.position - transform.position).sqrMagnitude < sniffRange)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector((Vector2)player.transform.position - (Vector2)transform.position));
-                rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
-            }
-            yield return null;
-        }
-
-        //while (true)
-        //{
-        //    //Decide thing to do
-        //    switch (Random.Range(0, 3))
-        //    {
-        //        case 0: yield return SniffPlayer(); break;
-        //        case 1: yield return TakeNap(); break;
-        //        case 2: yield return WanderAround(); break;
-        //    }
-        //}
-    }
-    private IEnumerator SniffPlayer()
-    {
-        //Move towards player untill in sniffrange
-        while ((player.transform.position - transform.position).sqrMagnitude > sniffRange)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(player.transform.position - transform.position));
-            //TODO if we add pathfinding use it here
-            rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
-            yield return null;
-        }
-
-        //Sniff for a while
-        yield return new WaitForSeconds(2f);
-
-        yield break;
-    }
-    private IEnumerator TakeNap()
-    {
-        //Yawn
-
-        //Take nap
-        yield return new WaitForSeconds(2f);
-
-        yield break;
-    }
-    private IEnumerator WanderAround()
-    {
-        //Find random position in player range while that position is reachable
-        //TODO only finds position directly in view, change if using pathfinding
-        Vector2 randomPos;
-        int layerMask = LayerMask.GetMask("BearInterests", "Walls");
-        do
-        {
-            randomPos = new Vector2(Random.Range(-distractionRange, distractionRange), Random.Range(-distractionRange, distractionRange)).normalized * distractionRange;
-        } while (Physics2D.Raycast(transform.position, randomPos, distractionRange, layerMask));
-
-        //Convert to worldspace
-        randomPos = (Vector2)player.transform.position + randomPos;
-
-        transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(randomPos - (Vector2)transform.position));
-        //Move towards position untill reached
-        while ((randomPos - (Vector2)transform.position).sqrMagnitude > sniffRange)
-        {
-            //TODO if we add pathfinding use it here
-            rb.MovePosition(Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * wanderSpeed));
-            yield return null;
-        }
-
-        yield break;
+        bearAnimator.Play("Idle");
+        //StartCoroutine(idlingRoutine);
     }
 
     private void RunAway()
@@ -324,12 +236,23 @@ public class BearMovement : MonoBehaviour
             if (!(bearState == BearState.Idle)) ReturnToIdle();
             return;
         }
-        //Stop the IdlingLoop
-        StopCoroutine(idlingRoutine);
         bearState = BearState.Distracted;
 
-        //If distraction check if player has any fish left, if not game over because cant lure away
+        //If found new distraction
+        if(oldDistractionCollider != distractionCollider)
+        {
 
+            float angle = Vector3.Angle((lastDistractedPosition - (Vector2)transform.position), transform.right);
+            float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross((lastDistractedPosition - (Vector2)transform.position), transform.right)));
+            float signedAngle = angle * sign;
+            float lookAngle = (signedAngle + 180) % 360;
+            int index = Mathf.RoundToInt(lookAngle / 90);
+            if (index == 4) index = 0;
+            bearAnimator.Play("Walk" + index);
+            oldDistractionCollider = distractionCollider;
+        }
+
+        //TODO If distraction check if player has any fish left, if not game over because cant lure away
     }
 
     private float GetAngleFromVector(Vector2 deltaVector)
