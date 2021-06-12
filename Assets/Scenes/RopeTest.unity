@@ -503,7 +503,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195278318}
   m_CullTransparentMesh: 1
---- !u!43 &241178751
+--- !u!43 &243043883
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1911,7 +1911,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeOffset: 5
+  ropeOffset: 2
   playerObject: {fileID: 0}
 --- !u!1 &1508288018
 GameObject:
