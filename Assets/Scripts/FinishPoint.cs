@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FinishPoint : MonoBehaviour
 {
+    private bool isFading;
     private bool isStartupFade = true;
     private bool isReloadFade;
 
@@ -11,6 +12,8 @@ public class FinishPoint : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Bear"))
         {
+            if (isFading) return; //so if bear and player enter hatch you dont skip a level
+            isFading = true;
             GameManager.Instance.currentLevel++;
             GetComponent<Animator>().Play("FadeOut");
             isStartupFade = false;
