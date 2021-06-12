@@ -52,14 +52,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMoveSpeed: 10
   pullBackStrength: 1
-  fishRemaining: 3
+  fishRemaining: 8
   bearSpraysRemaining: 1
   fishThrowRange: 6
   heldFishSR: {fileID: 8028996698896151214}
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
-  fishText: {fileID: 0}
-  sprayText: {fileID: 0}
 --- !u!212 &8028996698282975829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -100,8 +98,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
-  m_Color: {r: 0, g: 0.8679245, b: 0.12862603, a: 1}
+  m_Sprite: {fileID: 21300000, guid: dc47b41cb551b774d9a96107c6b045fe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -275,7 +273,7 @@ MonoBehaviour:
   - {x: -0.4752748, y: 0.36880732, z: 0}
   m_ShapePathHash: -595923227
   m_Mesh: {fileID: 0}
-  m_InstanceId: -193408
+  m_InstanceId: -4042
 --- !u!1 &8028996698320725191
 GameObject:
   m_ObjectHideFlags: 0
