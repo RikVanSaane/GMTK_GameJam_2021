@@ -19,6 +19,7 @@ public class BearTrap : MonoBehaviour
             isDisarmed = true;
             //TODO play disarm sound/anim
             GetComponent<SpriteRenderer>().sprite = disarmedSprite;
+            Destroy(collision.gameObject);
         }
 
         //If bear/player just fucking kill them

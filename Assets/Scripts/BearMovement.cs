@@ -271,7 +271,7 @@ public class BearMovement : MonoBehaviour
             }
 
             //Ignore if is in air
-            //if (bearInterest.isInActive) continue;
+            if (bearInterest.isInActive) continue;
 
             //If has no mostInteresting yet
             if (!mostInteresting)
