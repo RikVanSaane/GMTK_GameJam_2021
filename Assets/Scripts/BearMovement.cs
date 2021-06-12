@@ -206,7 +206,7 @@ public class BearMovement : MonoBehaviour
             }
             //Ignore if is in air
             if (bearInterest.isInActive) continue;
-
+           
             //If has no mostInteresting yet
             if (!mostInteresting)
             {
@@ -215,6 +215,7 @@ public class BearMovement : MonoBehaviour
                 distractionCollider = interest;
             }
 
+            //TODO Some sort of closest check as the value will all be the same
             //If current point is more interesting than previous
             if (bearInterest.interest > mostInteresting.interest)
             {
