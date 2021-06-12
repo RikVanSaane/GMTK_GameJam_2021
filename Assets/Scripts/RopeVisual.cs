@@ -5,9 +5,17 @@ using UnityEngine;
 public class RopeVisual : MonoBehaviour
 {
     public int ropeSegments;
+    public AnimationCurve ropeCurve;
+    public float ropeOffset = 0.1f;
 
     [SerializeField]
     private GameObject playerObject;
+    private GameObject bearObject;
+    static float t = 0.0f;
+    private bool reverseAnim = false;
+
+    private float bearRadius;
+    private float playerRadius;
 
     private LineRenderer lineRenderer;
     void Start()
@@ -18,15 +26,34 @@ public class RopeVisual : MonoBehaviour
 		{
             playerObject = GameObject.Find("Player");
         }
+        if(bearObject == null)
+		{
+            bearObject = GameObject.Find("Bear");
+		}
+
+        bearRadius = bearObject.GetComponent<CircleCollider2D>().radius * 3;
+        playerRadius = playerObject.GetComponent<CircleCollider2D>().radius;
     }
     void Update()
     {
-        for(int i = 0; i <= ropeSegments; i++)
-		{
-            lineRenderer.SetPosition(i, Vector3.Lerp(transform.position, playerObject.transform.position, (float)i / ropeSegments));
-		}
+        for (int i = 0; i <= ropeSegments; i++)
+        {
+            float distance = Vector2.Distance(transform.position, playerObject.transform.position);
+            Vector3 diff = transform.position - playerObject.transform.position;
+            Vector2 temp = Vector3.Cross(transform.position - playerObject.transform.position, Vector3.forward);
+            float animCurveValue = ropeCurve.Evaluate((float)i / ropeSegments);
 
-        // lineRenderer.SetPosition(0, transform.position);
-        // lineRenderer.SetPosition(1, playerObject.transform.position);
+            // if (reverseAnim)
+                //animCurveValue = -animCurveValue;
+            t += 0.1f * Time.deltaTime;
+            // lineRenderer.SetPosition(i, Vector2.Lerp(transform.position, playerObject.transform.position, (float)i / ropeSegments) + temp * Mathf.Lerp(animCurveValue, -animCurveValue, t) * ropeOffset);
+            lineRenderer.SetPosition(i, Vector2.Lerp(transform.position - diff.normalized * bearRadius, playerObject.transform.position + diff.normalized * playerRadius, (float)i / ropeSegments) + temp * animCurveValue * (1 / (distance * distance * distance)) * ropeOffset);
+            if (t > 1.0f)
+			{
+                reverseAnim = !reverseAnim;
+                t = 0.0f;
+			}
+            
+        }
     }
 }
