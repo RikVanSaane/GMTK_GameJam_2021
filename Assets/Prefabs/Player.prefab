@@ -54,9 +54,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMoveSpeed: 8
   pullBackStrength: 1.5
-  fishRemaining: 6
-  bearSpraysRemaining: 1
-  fishThrowRange: 30
+  fishRemaining: 5
+  bearSpraysRemaining: 0
+  fishThrowRange: 15
   heldFishSR: {fileID: 8028996698896151214}
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
@@ -291,7 +291,7 @@ MonoBehaviour:
   - {x: -0.47995758, y: 0.22697401, z: 0}
   m_ShapePathHash: -193071467
   m_Mesh: {fileID: 0}
-  m_InstanceId: -429310
+  m_InstanceId: -536408
 --- !u!82 &2113996112
 AudioSource:
   m_ObjectHideFlags: 0

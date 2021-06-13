@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TRKGeneric;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     protected override void Init()
     {
+        GetComponent<StudioEventEmitter>().Play();
         DontDestroyOnLoad(gameObject);
     }
     public void FallIntoWell()
@@ -35,6 +37,7 @@ public class GameManager : MonoSingleton<GameManager>
         if (currentLevel == 15)
         {
             currentLevel = 0;
+            GetComponent<StudioEventEmitter>().Play();
             SceneManager.LoadScene("MainMenu");
         }
         else SceneManager.LoadScene("level" + currentLevel);
