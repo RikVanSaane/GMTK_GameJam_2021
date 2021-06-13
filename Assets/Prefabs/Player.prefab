@@ -61,7 +61,7 @@ MonoBehaviour:
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
   sprayClip: {fileID: 8300000, guid: 31c8ee121dadc0d4ab7e5d01fae39cce, type: 3}
-  inventorySwitch: {fileID: 0}
+  inventorySwitch: {fileID: 8300000, guid: 39c79592e191d6445a04c3e412ceb32b, type: 3}
 --- !u!212 &8028996698282975829
 SpriteRenderer:
   m_ObjectHideFlags: 0
