@@ -22,6 +22,7 @@ public class BearInterest : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, position, speed * Time.deltaTime);
             yield return null;
         }
+        GetComponent<AudioSource>().Play();
         isInActive = false;
     }
 }

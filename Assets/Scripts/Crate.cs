@@ -19,5 +19,6 @@ public class Crate : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().sprite = brokenSprite;
         GetComponent<ShadowCaster2D>().enabled = false;
+        GetComponent<AudioSource>().Play();
     }
 }

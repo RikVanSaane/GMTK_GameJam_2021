@@ -15,8 +15,8 @@ public class GameManager : MonoSingleton<GameManager>
     }
     protected override void Init()
     {
-        GetComponent<StudioEventEmitter>().Play();
         DontDestroyOnLoad(gameObject);
+        GetComponent<StudioEventEmitter>().Play();
     }
     public void FallIntoWell()
     {
@@ -38,7 +38,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void LoadNextLevel()
     {
-        if (currentLevel == 15)
+        if (currentLevel == 17)
         {
             currentLevel = 0;
             GetComponent<StudioEventEmitter>().Play();

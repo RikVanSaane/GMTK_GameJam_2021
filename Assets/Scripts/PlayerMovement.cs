@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer heldSpraySR;
     [SerializeField] private GameObject fishPrefab;
     [SerializeField] private AudioClip sprayClip;
+    [SerializeField] private AudioClip inventorySwitch;
 
     private TMP_Text fishText;
     private TMP_Text sprayText;
@@ -47,6 +48,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead) return;
 
+        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (heldFishSR.enabled ||  fishRemaining == 0)
+            {
+                ToggleSpray();
+            }
+            else
+            {
+                ToggleFish();
+            }
+        } 
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (heldFishSR.enabled || fishRemaining == 0)
+            {
+                ToggleSpray();
+            }
+            else
+            {
+                ToggleFish();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ToggleFish();
@@ -55,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ToggleSpray();
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             UseItem();
         }
@@ -142,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (fishRemaining == 0) return;
 
+        audioSource.PlayOneShot(inventorySwitch);
         heldSpraySR.enabled = false;
         heldFishSR.enabled = !heldFishSR.enabled;
         previewLine.enabled = heldFishSR.enabled;
@@ -149,6 +174,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ToggleSpray()
     {
+        if (bearSpraysRemaining == 0) return;
+
+        audioSource.PlayOneShot(inventorySwitch);
         heldFishSR.enabled = false;
         heldSpraySR.enabled = !heldSpraySR.enabled;
         previewLine.enabled = heldSpraySR.enabled;
