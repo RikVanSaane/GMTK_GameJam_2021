@@ -32,7 +32,27 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void LoadNextLevel()
     {
-        if(currentLevel == 15) SceneManager.LoadScene("MainMenu");
+        if (currentLevel == 15) LoadMainMenu();
         else SceneManager.LoadScene("level" + currentLevel);
+    }
+
+    public void LoadOptionsScene()
+	{
+        SceneManager.LoadScene("OptionsMenu");
+	}
+
+    public void LoadCreditsScene()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+
+    public void LoadMainMenu()
+	{
+        SceneManager.LoadScene("MainMenu");
+	}
+
+    public void LoadSceneWithName(string sceneName)
+	{
+        SceneManager.LoadScene(sceneName);
     }
 }
