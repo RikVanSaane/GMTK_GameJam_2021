@@ -26,6 +26,10 @@ public class GameManager : MonoSingleton<GameManager>
     public void LoadNextCutScene()
     {
         currentLevel++;
+        if(currentLevel == 3)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1);
+        }
         StartFadeToNextLevel();
     }
     public void StartFadeToNextLevel()
@@ -38,6 +42,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             currentLevel = 0;
             GetComponent<StudioEventEmitter>().Play();
+            GetComponent<StudioEventEmitter>().SetParameter("state", 0);
             SceneManager.LoadScene("MainMenu");
         }
         else SceneManager.LoadScene("level" + currentLevel);
