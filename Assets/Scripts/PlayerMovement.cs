@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer heldFishSR;
     [SerializeField] private SpriteRenderer heldSpraySR;
     [SerializeField] private GameObject fishPrefab;
+    [SerializeField] private AudioClip sprayClip;
 
     private TMP_Text fishText;
     private TMP_Text sprayText;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private LineRenderer previewLine;
     private bool isDead;
     private Animator animator;
+    private AudioSource audioSource;
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         bear = GameObject.Find("Bear").GetComponent<BearMovement>();
         previewLine = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         fishText = GameObject.Find("FishText").GetComponent<TMP_Text>();
         sprayText = GameObject.Find("SprayText").GetComponent<TMP_Text>();
@@ -90,7 +93,9 @@ public class PlayerMovement : MonoBehaviour
                 previewLine.endColor = Color.green;
             }
         }
-
+    }
+    private void FixedUpdate()
+    {
         //Cant move while being pulled
         if (beingPulled) return;
 
@@ -116,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         //Maybe allow free movement while in range of bear, and use AddForce while rope is tight
         //TODO replace this with some sort of check that rope is tight, for when rope is around a corner
 
-        rb.MovePosition((Vector2)transform.position + inputVector * Time.deltaTime * maxMoveSpeed);
+        transform.position = (Vector2)transform.position + inputVector * Time.fixedDeltaTime * maxMoveSpeed;
 
         float angle = Vector3.Angle(inputVector, transform.right);
         float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross(inputVector, transform.right)));
@@ -161,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
                 //Move bear in direction
                 Vector2 direction = mousePos - (Vector2)transform.position;
                 bear.GetBearSprayed(direction);
+                audioSource.PlayOneShot(sprayClip);
 
                 bearSpraysRemaining--;
                 sprayText.text = bearSpraysRemaining.ToString();
@@ -168,6 +174,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     heldSpraySR.enabled = false;
                     previewLine.enabled = false;
+
+                    if (fishRemaining == 0) StartCoroutine(OutOfItems());
                 }
             }
         }
@@ -188,9 +196,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 heldFishSR.enabled = false;
                 previewLine.enabled = false;
+
+                if (bearSpraysRemaining == 0) StartCoroutine(OutOfItems());
             }
 
         }
+    }
+    private IEnumerator OutOfItems()
+    {
+        yield return new WaitForSeconds(3f);
+        Die();
     }
     private IEnumerator PullToBear()
     {

@@ -17,8 +17,7 @@ public class BearTrap : MonoBehaviour
             collision.gameObject.GetComponent<BearInterest>().StopAllCoroutines();
             collision.gameObject.GetComponent<BearInterest>().isInActive = true;
             isDisarmed = true;
-            //TODO play disarm sound/anim
-            GetComponent<SpriteRenderer>().sprite = disarmedSprite;
+
             Destroy(collision.gameObject);
         }
 
@@ -26,11 +25,13 @@ public class BearTrap : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerMovement>().Die();
-            GetComponent<SpriteRenderer>().sprite = disarmedSprite;
-        } else if (collision.gameObject.CompareTag("Bear"))
+        }
+        else if (collision.gameObject.CompareTag("Bear"))
         {
             collision.gameObject.GetComponent<BearMovement>().Die();
-            GetComponent<SpriteRenderer>().sprite = disarmedSprite;
         }
+
+        GetComponent<SpriteRenderer>().sprite = disarmedSprite;
+        GetComponent<AudioSource>().Play();
     }
 }

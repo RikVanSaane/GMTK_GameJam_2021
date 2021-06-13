@@ -17,13 +17,16 @@ public class FinishPoint : MonoBehaviour
             isFading = true;
             GameManager.Instance.currentLevel++;
             //"Temp" fix to skip main menu stuff, if is in level3, load level 4
-            if (SceneManager.GetActiveScene().name == "Level3") GameManager.Instance.currentLevel = 4;
+            int levelIndex = int.Parse(SceneManager.GetActiveScene().name.Remove(0, 5));
+            GameManager.Instance.currentLevel = levelIndex + 1;
             GameManager.Instance.StartFadeToNextLevel();
         }
     }
     public void ReloadLevel()
     {
         isFading = true;
+        int levelIndex = int.Parse(SceneManager.GetActiveScene().name.Remove(0, 5));
+        GameManager.Instance.currentLevel = levelIndex;
         GameManager.Instance.StartFadeToNextLevel();
     }
 }

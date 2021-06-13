@@ -13,10 +13,12 @@ public class Pit : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerMovement>().Die();
+                GetComponent<AudioSource>().Play();
             }
             else if (collision.gameObject.CompareTag("Bear"))
             {
                 collision.gameObject.GetComponent<BearMovement>().Die();
+                GetComponent<AudioSource>().Play();
             }
         }
     }
