@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 748aa8d5487358249b971a015f4f70ec
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Cedarville Cursive
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 380a295aa53a82d49b7b8349b1c9c24a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
