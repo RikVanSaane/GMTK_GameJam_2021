@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Crate : MonoBehaviour
 {
@@ -17,5 +18,6 @@ public class Crate : MonoBehaviour
 
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().sprite = brokenSprite;
+        GetComponent<ShadowCaster2D>().enabled = false;
     }
 }

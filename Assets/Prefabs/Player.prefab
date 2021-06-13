@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8028996698282975848}
   - component: {fileID: 1129663569}
   - component: {fileID: 1129663570}
+  - component: {fileID: 2113996112}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -51,14 +52,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c6b62df5de7b3488686aba67831cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveSpeed: 12
-  pullBackStrength: 2
-  fishRemaining: 50
+  maxMoveSpeed: 8
+  pullBackStrength: 1.5
+  fishRemaining: 6
   bearSpraysRemaining: 1
-  fishThrowRange: 20
+  fishThrowRange: 30
   heldFishSR: {fileID: 8028996698896151214}
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
+  sprayClip: {fileID: 8300000, guid: 31c8ee121dadc0d4ab7e5d01fae39cce, type: 3}
 --- !u!212 &8028996698282975829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 4782491750271496803, guid: 3838775b783ef2c45853a7bc82286160, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dc47b41cb551b774d9a96107c6b045fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -289,7 +291,103 @@ MonoBehaviour:
   - {x: -0.47995758, y: 0.22697401, z: 0}
   m_ShapePathHash: -193071467
   m_Mesh: {fileID: 0}
-  m_InstanceId: -52658
+  m_InstanceId: -429310
+--- !u!82 &2113996112
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028996698282975830}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8028996698320725191
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,13 +412,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028996698320725191}
-  m_LocalRotation: {x: -0, y: -0, z: -0.60876113, w: 0.79335356}
-  m_LocalPosition: {x: 0.159, y: 0.986, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.25, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.13052566, w: 0.99144495}
+  m_LocalPosition: {x: 0.227, y: 0.898, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 8028996698282975828}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -75}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
 --- !u!212 &8028996698320725190
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -361,7 +459,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c324b9560801bbf48b08d1e7f040c010, type: 3}
   m_Color: {r: 1, g: 0.8820755, b: 0.8876249, a: 1}
   m_FlipX: 0
   m_FlipY: 0

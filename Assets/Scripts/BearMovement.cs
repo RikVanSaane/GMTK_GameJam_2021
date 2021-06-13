@@ -12,11 +12,15 @@ public class BearMovement : MonoBehaviour
     [SerializeField] private float visionCone = 180f;
     [SerializeField] private float sniffRange = 0.5f;
 
+    [SerializeField] private AudioClip eatClip;
+    [SerializeField] private AudioClip[] hurtClips;
+
     //Component references
     private GameObject player;
     private Rigidbody2D rb;
     private Collider2D bearCollider;
     private Animator bearAnimator;
+    private AudioSource audioSource;
 
     //Movement variables
     private Vector2 lastScarePosition;
@@ -37,10 +41,11 @@ public class BearMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bearCollider = GetComponent<Collider2D>();
         bearAnimator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         ReturnToIdle();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         CheckForDistractions();
         switch (bearState)
@@ -79,6 +84,7 @@ public class BearMovement : MonoBehaviour
     {
         StopAllCoroutines();
         bearState = BearState.Scared;
+        audioSource.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Length)]);
         direction = (Vector2)transform.position + direction * 100;
         lastScarePosition = direction;
         //transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(direction));
@@ -92,7 +98,7 @@ public class BearMovement : MonoBehaviour
     }
     private IEnumerator EatFish(GameObject fish)
     {
-        //TODO play munching sounds
+        audioSource.PlayOneShot(eatClip);
         bearAnimator.Play("Idle");
         Destroy(fish);
         yield return new WaitForSeconds(0.5f);
@@ -106,7 +112,7 @@ public class BearMovement : MonoBehaviour
         //TODO if we add pathfinding use it here
         if (!bearCollider.IsTouching(distractionCollider))
         {
-            rb.MovePosition(Vector2.MoveTowards(transform.position, lastDistractedPosition, Time.deltaTime * distractionSpeed));
+            transform.position = Vector2.MoveTowards(transform.position, lastDistractedPosition, Time.fixedDeltaTime * distractionSpeed);
         }
         else
         {
@@ -130,7 +136,7 @@ public class BearMovement : MonoBehaviour
     private void RunAway()
     {
         //Run away from thing that scared bear untill no longer in scare range of object + small scare timer
-        rb.MovePosition(Vector2.MoveTowards(transform.position, lastScarePosition, Time.deltaTime * distractionSpeed));
+        transform.position = Vector2.MoveTowards(transform.position, lastScarePosition, Time.fixedDeltaTime * distractionSpeed*2);
     }
     private void CheckForDistractions()
     {
@@ -140,21 +146,6 @@ public class BearMovement : MonoBehaviour
         //Scares take priority
         LayerMask layerMask = LayerMask.GetMask("BearInterests");
         Collider2D[] interests = Physics2D.OverlapCircleAll(transform.position, distractionRange, layerMask);
-        //List<Collider2D> interests = new List<Collider2D>();
-        //int raysToCast = Mathf.CeilToInt(visionCone / 10);
-        //float angleStepSize = visionCone / raysToCast;
-        //for (int i = 0; i < raysToCast + 1; i++)
-        //{
-        //    float localAngle = angleStepSize * i;
-        //    float worldSpaceAngle = -GetAngleFromVector(transform.right) + 90;
-        //    localAngle = worldSpaceAngle + localAngle - visionCone / 2;
-        //    Vector2 rayDirection = VecFromAngle(localAngle);
-        //    RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, distractionRange, layerMask);
-        //    if (hit)
-        //    {
-        //        interests.Add(hit.collider);
-        //    }
-        //}      
 
         BearInterest mostInteresting = null;
         foreach (Collider2D interest in interests)
@@ -170,7 +161,16 @@ public class BearMovement : MonoBehaviour
             if (bearInterest.isScary)
             {
                 bearState = BearState.Scared;
-                lastScarePosition = interest.ClosestPoint(transform.position);
+                audioSource.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Length)]);
+                Vector2 scareDirection = (-(interest.ClosestPoint(transform.position)-(Vector2)transform.position)) * 100;
+                lastScarePosition = scareDirection;
+                float angle = Vector3.Angle(scareDirection, transform.right);
+                float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross(scareDirection, transform.right)));
+                float signedAngle = angle * sign;
+                float lookAngle = (signedAngle + 180) % 360;
+                int index = Mathf.RoundToInt(lookAngle / 90);
+                if (index == 4) index = 0;
+                bearAnimator.Play("Walk" + index);
                 StopAllCoroutines();
                 return;
             }
@@ -196,6 +196,7 @@ public class BearMovement : MonoBehaviour
         }
         layerMask = LayerMask.GetMask("FishLayer");
         interests = Physics2D.OverlapCircleAll(transform.position, 100, layerMask);
+        float closestDist = float.MaxValue;
         foreach (Collider2D interest in interests)
         {
             //Gets the BearInterest component, which holds the value of how interesting the object is
@@ -207,34 +208,37 @@ public class BearMovement : MonoBehaviour
             //Ignore if is in air
             if (bearInterest.isInActive) continue;
 
+            float thisDist = Vector2.Distance(bearInterest.transform.position, transform.position);
             //If has no mostInteresting yet
             if (!mostInteresting)
             {
                 mostInteresting = bearInterest;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
                 distractionCollider = interest;
+                closestDist = thisDist;
+                continue;
             }
 
             //If current point is more interesting than previous
-            if (bearInterest.interest > mostInteresting.interest)
+            if (thisDist < closestDist)
             {
                 mostInteresting = bearInterest;
+                closestDist = thisDist;
                 lastDistractedPosition = interest.ClosestPoint(transform.position);
                 distractionCollider = interest;
             }
         }
 
-        //If found no interests 
-        if (interests.Length == 0)
-        {
-            if (!(bearState == BearState.Idle)) ReturnToIdle();
-            return;
-        }
-
+        //If found no interests
         if (mostInteresting == null)
         {
             if (!(bearState == BearState.Idle)) ReturnToIdle();
             return;
+        }
+        //If fish got thrown inside hitbox
+        if (bearCollider.OverlapPoint(mostInteresting.transform.position))
+        {
+            StartCoroutine(EatFish(mostInteresting.gameObject));
         }
         bearState = BearState.Distracted;
 
@@ -271,6 +275,8 @@ public class BearMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distractionRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sniffRange / sniffRange);
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(lastScarePosition, 1);
 
         //int raysToCast = Mathf.CeilToInt(visionCone / 10);
         //float angleStepSize = visionCone / raysToCast;

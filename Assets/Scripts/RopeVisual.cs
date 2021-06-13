@@ -31,8 +31,10 @@ public class RopeVisual : MonoBehaviour
             bearObject = GameObject.Find("Bear");
 		}
 
-        bearRadius = bearObject.GetComponent<CircleCollider2D>().radius * 3;
-        playerRadius = playerObject.GetComponent<CircleCollider2D>().radius;
+        //playerRadius = playerObject.GetComponent<CircleCollider2D>().radius;
+        //bearRadius = playerRadius * 3; //bear no longer has circle collider so had to change this
+        playerRadius = 0.1f;
+        bearRadius = 0.1f;
     }
     void Update()
     {
