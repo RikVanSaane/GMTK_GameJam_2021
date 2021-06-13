@@ -204,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator OutOfItems()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         Die();
     }
     private IEnumerator PullToBear()

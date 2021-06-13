@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337f9c125ac09dc40a99014a68af5fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distractionRange: 5
+  distractionRange: 4
   bearState: 0
   wanderSpeed: 1
   distractionSpeed: 6

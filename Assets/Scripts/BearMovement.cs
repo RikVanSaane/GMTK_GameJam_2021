@@ -162,7 +162,15 @@ public class BearMovement : MonoBehaviour
             {
                 bearState = BearState.Scared;
                 audioSource.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Length)]);
-                lastScarePosition = interest.ClosestPoint(transform.position);
+                Vector2 scareDirection = (-(interest.ClosestPoint(transform.position)-(Vector2)transform.position)) * 100;
+                lastScarePosition = scareDirection;
+                float angle = Vector3.Angle(scareDirection, transform.right);
+                float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross(scareDirection, transform.right)));
+                float signedAngle = angle * sign;
+                float lookAngle = (signedAngle + 180) % 360;
+                int index = Mathf.RoundToInt(lookAngle / 90);
+                if (index == 4) index = 0;
+                bearAnimator.Play("Walk" + index);
                 StopAllCoroutines();
                 return;
             }
@@ -221,13 +229,7 @@ public class BearMovement : MonoBehaviour
             }
         }
 
-        //If found no interests 
-        if (interests.Length == 0)
-        {
-            if (!(bearState == BearState.Idle)) ReturnToIdle();
-            return;
-        }
-
+        //If found no interests
         if (mostInteresting == null)
         {
             if (!(bearState == BearState.Idle)) ReturnToIdle();
@@ -268,6 +270,8 @@ public class BearMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distractionRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sniffRange / sniffRange);
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(lastScarePosition, 1);
 
         //int raysToCast = Mathf.CeilToInt(visionCone / 10);
         //float angleStepSize = visionCone / raysToCast;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public int currentLevel = 1;
+    public int currentLevel;
 
     private void OnLevelWasLoaded()
     {
@@ -16,12 +16,23 @@ public class GameManager : MonoSingleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
     }
+    public void FallIntoWell()
+    {
+        GetComponent<AudioSource>().Play();
+        LoadNextCutScene();
+    }
+    public void LoadNextCutScene()
+    {
+        currentLevel++;
+        StartFadeToNextLevel();
+    }
     public void StartFadeToNextLevel()
     {
         GetComponent<Animator>().Play("FadeOut");
     }
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("level" + currentLevel);
+        if(currentLevel == 15) SceneManager.LoadScene("MainMenu");
+        else SceneManager.LoadScene("level" + currentLevel);
     }
 }
