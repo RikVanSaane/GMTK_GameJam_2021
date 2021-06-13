@@ -1,5 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7957007304006331076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/LevelMusic
+  m_EditorClassIdentifier: 
+  Path: event:/LevelMusic
+  guid: b12e268d4f405a40bf221ad8a662177a
+  Banks:
+  - {fileID: -7643978609014808190}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 72000
 --- !u!114 &-7643978609014808190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,7 +38,7 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637590371738421349
+  lastModified: 637591882569710340
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -34,11 +57,11 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637590371738430893
+  lastModified: 637591882569719963
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 700
+    Value: 748
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -55,11 +78,12 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: -5720134474101516847}
   - {fileID: -7643978609014808190}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: -7957007304006331076}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7643978609014808190}
   StringsBanks:
   - {fileID: -5720134474101516847}
-  stringsBankWriteTime: 637590371738430893
+  stringsBankWriteTime: 637591882569719963
   cacheVersion: 6
