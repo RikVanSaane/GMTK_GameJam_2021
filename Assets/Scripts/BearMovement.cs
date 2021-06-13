@@ -235,6 +235,11 @@ public class BearMovement : MonoBehaviour
             if (!(bearState == BearState.Idle)) ReturnToIdle();
             return;
         }
+        //If fish got thrown inside hitbox
+        if (bearCollider.OverlapPoint(mostInteresting.transform.position))
+        {
+            StartCoroutine(EatFish(mostInteresting.gameObject));
+        }
         bearState = BearState.Distracted;
 
         //If found new distraction
