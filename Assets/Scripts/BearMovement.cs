@@ -6,6 +6,7 @@ public class BearMovement : MonoBehaviour
 {
     public float distractionRange = 5f;
     public BearState bearState;
+    public bool isDead;
 
     [SerializeField] private float wanderSpeed = 1f;
     [SerializeField] private float distractionSpeed = 3f;
@@ -47,6 +48,7 @@ public class BearMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (isDead) return;
         CheckForDistractions();
         switch (bearState)
         {
@@ -77,6 +79,7 @@ public class BearMovement : MonoBehaviour
     public void Die()
     {
         //TODO play anim/sound and call GameManager.GameOver()
+        isDead = true;
         bearState = BearState.Idle;
         GameObject.Find("FinishPoint").GetComponent<FinishPoint>().ReloadLevel();
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TRKGeneric;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoSingleton<GameManager>
     protected override void Init()
     {
         DontDestroyOnLoad(gameObject);
+        GetComponent<StudioEventEmitter>().Play();
     }
     public void FallIntoWell()
     {
@@ -24,6 +26,18 @@ public class GameManager : MonoSingleton<GameManager>
     public void LoadNextCutScene()
     {
         currentLevel++;
+        if(currentLevel == 3)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1);
+        }
+        else if (currentLevel == 14)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
+        }
+        else if (currentLevel == 16)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
+        }
         StartFadeToNextLevel();
     }
     public void StartFadeToNextLevel()
@@ -32,12 +46,15 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void LoadNextLevel()
     {
-        if (currentLevel == 15)
+        if (currentLevel == 17)
         {
             currentLevel = 0;
+            GetComponent<StudioEventEmitter>().Play();
+            GetComponent<StudioEventEmitter>().SetParameter("state", 0);
             SceneManager.LoadScene("MainMenu");
+            return;
         }
-        else SceneManager.LoadScene("level" + currentLevel);
+        SceneManager.LoadScene("level" + currentLevel);
     }
 
     public void LoadOptionsScene()

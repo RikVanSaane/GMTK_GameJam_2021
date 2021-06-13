@@ -15,6 +15,7 @@ public class FinishPoint : MonoBehaviour
         {
             if (isFading) return; //so if bear and player enter hatch you dont skip a level
             isFading = true;
+            GetComponent<AudioSource>().Play();
             GameManager.Instance.currentLevel++;
             //"Temp" fix to skip main menu stuff, if is in level3, load level 4
             int levelIndex = int.Parse(SceneManager.GetActiveScene().name.Remove(0, 5));
