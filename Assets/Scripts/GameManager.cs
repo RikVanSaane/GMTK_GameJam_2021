@@ -30,6 +30,14 @@ public class GameManager : MonoSingleton<GameManager>
         {
             GetComponent<StudioEventEmitter>().SetParameter("state", 1);
         }
+        else if (currentLevel == 14)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
+        }
+        else if (currentLevel == 16)
+        {
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
+        }
         StartFadeToNextLevel();
     }
     public void StartFadeToNextLevel()
@@ -44,8 +52,9 @@ public class GameManager : MonoSingleton<GameManager>
             GetComponent<StudioEventEmitter>().Play();
             GetComponent<StudioEventEmitter>().SetParameter("state", 0);
             SceneManager.LoadScene("MainMenu");
+            return;
         }
-        else SceneManager.LoadScene("level" + currentLevel);
+        SceneManager.LoadScene("level" + currentLevel);
     }
 
     public void LoadOptionsScene()
