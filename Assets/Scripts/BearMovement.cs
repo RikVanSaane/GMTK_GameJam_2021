@@ -15,6 +15,8 @@ public class BearMovement : MonoBehaviour
 
     [SerializeField] private AudioClip eatClip;
     [SerializeField] private AudioClip[] hurtClips;
+    [SerializeField] private GameObject exclemationMarkPrefab;
+    [SerializeField] private GameObject alertTransform;
 
     //Component references
     private GameObject player;
@@ -174,6 +176,8 @@ public class BearMovement : MonoBehaviour
                 int index = Mathf.RoundToInt(lookAngle / 90);
                 if (index == 4) index = 0;
                 bearAnimator.Play("Walk" + index);
+                GameObject exclemationMark = Instantiate(exclemationMarkPrefab, interest.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(exclemationMark, 0.6f);
                 StopAllCoroutines();
                 return;
             }
@@ -248,6 +252,16 @@ public class BearMovement : MonoBehaviour
         //If found new distraction
         if(oldDistractionCollider != distractionCollider)
         {
+            if (distractionCollider.gameObject.CompareTag("Fish"))
+            {
+                GameObject exclemationMark = Instantiate(exclemationMarkPrefab, distractionCollider.transform.GetChild(0).position, Quaternion.identity);
+                Destroy(exclemationMark, 0.6f);
+            }
+            else
+            {
+                GameObject exclemationMark = Instantiate(exclemationMarkPrefab, lastDistractedPosition, Quaternion.identity);
+                Destroy(exclemationMark, 0.6f);
+            }
 
             float angle = Vector3.Angle((lastDistractedPosition - (Vector2)transform.position), transform.right);
             float sign = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.Cross((lastDistractedPosition - (Vector2)transform.position), transform.right)));
