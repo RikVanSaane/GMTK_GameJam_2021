@@ -47,7 +47,7 @@ public class GameManager : MonoSingleton<GameManager>
             //musicSource.Play();
             GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
         }
-        else if (currentLevel == 16)
+        else if (currentLevel == 15)
         {
             GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
         }
