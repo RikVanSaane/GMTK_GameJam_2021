@@ -14,6 +14,10 @@ public class FinishPoint : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Bear"))
         {
             if (isFading) return; //so if bear and player enter hatch you dont skip a level
+            if (collision.gameObject.CompareTag("Bear"))
+            {
+                collision.gameObject.GetComponent<BearMovement>().Die();
+            }
             isFading = true;
             GetComponent<AudioSource>().Play();
             GameManager.Instance.currentLevel++;

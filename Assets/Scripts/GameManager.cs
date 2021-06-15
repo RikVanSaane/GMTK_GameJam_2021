@@ -7,6 +7,10 @@ using FMODUnity;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioClip mainMenu;
+    [SerializeField] private AudioClip ingame;
+    [SerializeField] private AudioClip endgame;
     public int currentLevel;
 
     private void OnLevelWasLoaded()
@@ -16,7 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
     protected override void Init()
     {
         DontDestroyOnLoad(gameObject);
-        GetComponent<StudioEventEmitter>().Play();
+        //GetComponent<StudioEventEmitter>().Play();
     }
     public void FallIntoWell()
     {
@@ -28,20 +32,25 @@ public class GameManager : MonoSingleton<GameManager>
         currentLevel++;
         if(currentLevel == 3)
         {
-            GetComponent<StudioEventEmitter>().SetParameter("state", 1);
+            musicSource.clip = ingame;
+            musicSource.Play();
+            //GetComponent<StudioEventEmitter>().SetParameter("state", 1);
         }
-        else if (currentLevel == 14)
-        {
-            GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
-        }
-        else if (currentLevel == 16)
-        {
-            GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
-        }
+        
         StartFadeToNextLevel();
     }
     public void StartFadeToNextLevel()
     {
+        if (currentLevel == 14)
+        {
+            musicSource.clip = endgame;
+            musicSource.Play();
+            //GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
+        }
+        else if (currentLevel == 16)
+        {
+            //GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
+        }
         GetComponent<Animator>().Play("FadeOut");
     }
     public void LoadNextLevel()
@@ -49,8 +58,10 @@ public class GameManager : MonoSingleton<GameManager>
         if (currentLevel == 17)
         {
             currentLevel = 0;
-            GetComponent<StudioEventEmitter>().Play();
-            GetComponent<StudioEventEmitter>().SetParameter("state", 0);
+            musicSource.clip = mainMenu;
+            musicSource.Play();
+            //GetComponent<StudioEventEmitter>().Play();
+            //GetComponent<StudioEventEmitter>().SetParameter("state", 0);
             SceneManager.LoadScene("MainMenu");
             return;
         }
