@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: event:/LevelMusic
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Path: event:/LevelMusic
   guid: b12e268d4f405a40bf221ad8a662177a
   Banks:
@@ -35,13 +35,33 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637591903332826813
+  lastModified: 637593864097784602
   LoadResult: 0
   FileSizes: []
+  Exists: 1
+--- !u!114 &-6880226246515243762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LevelMusic/state
+  m_EditorClassIdentifier: 
+  Name: state
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
   Exists: 1
 --- !u!114 &-5720134474101516847
 MonoBehaviour:
@@ -54,11 +74,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637591903332846801
+  lastModified: 637593864097794570
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -75,7 +95,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/LevelMusic/state
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Name: state
   Min: 0
   Max: 1
@@ -95,7 +115,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -5720134474101516847}
   - {fileID: -7643978609014808190}
@@ -106,7 +126,7 @@ MonoBehaviour:
   - {fileID: -7643978609014808190}
   StringsBanks:
   - {fileID: -5720134474101516847}
-  stringsBankWriteTime: 637591903332846801
+  stringsBankWriteTime: 637593864097794570
   cacheVersion: 6
 --- !u!114 &2717605866952639867
 MonoBehaviour:
@@ -119,7 +139,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/LevelMusic/state
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Name: state
   Min: 0
   Max: 2
@@ -139,7 +159,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/LevelMusic/Volume
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Name: Volume
   Min: 0
   Max: 1
@@ -159,7 +179,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: event:/LevelMusic
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Path: event:/LevelMusic
   guid: b12e268d4f405a40bf221ad8a662177a
   Banks:
@@ -168,11 +188,10 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 2717605866952639867}
-  - {fileID: 2968825886899604055}
+  - {fileID: -6880226246515243762}
   MinDistance: 0
   MaxDistance: 0
-  Length: 178500
+  Length: 144000
 --- !u!114 &8860607916238174806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +203,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/LevelMusic/state
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Name: state
   Min: 0
   Max: 1
