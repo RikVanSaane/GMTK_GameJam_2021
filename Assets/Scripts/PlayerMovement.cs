@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             previewLine.SetPosition(0, transform.position);
             previewLine.SetPosition(1, mousePos);
-            if (!bear.GetComponent<Collider2D>().OverlapPoint(mousePos))
+            if (!bear.transform.GetChild(3).GetComponent<Collider2D>().OverlapPoint(mousePos))
             {
                 previewLine.startColor = Color.red;
                 previewLine.endColor = Color.red;
@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
             //Get direction
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Test if bear is in range
-            if (bear.GetComponent<Collider2D>().OverlapPoint(mousePos))
+            if (bear.transform.GetChild(3).GetComponent<Collider2D>().OverlapPoint(mousePos))
             {
                 //Move bear in direction
                 Vector2 direction = mousePos - (Vector2)transform.position;

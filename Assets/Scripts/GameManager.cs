@@ -20,7 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
     protected override void Init()
     {
         DontDestroyOnLoad(gameObject);
-        //GetComponent<StudioEventEmitter>().Play();
+        GetComponent<StudioEventEmitter>().Play();
     }
     public void FallIntoWell()
     {
@@ -32,9 +32,9 @@ public class GameManager : MonoSingleton<GameManager>
         currentLevel++;
         if(currentLevel == 3)
         {
-            musicSource.clip = ingame;
-            musicSource.Play();
-            //GetComponent<StudioEventEmitter>().SetParameter("state", 1);
+            //musicSource.clip = ingame;
+            //musicSource.Play();
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1);
         }
         
         StartFadeToNextLevel();
@@ -43,13 +43,13 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (currentLevel == 14)
         {
-            musicSource.clip = endgame;
-            musicSource.Play();
-            //GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
+            //musicSource.clip = endgame;
+            //musicSource.Play();
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.1f);
         }
         else if (currentLevel == 16)
         {
-            //GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
+            GetComponent<StudioEventEmitter>().SetParameter("state", 1.5f);
         }
         GetComponent<Animator>().Play("FadeOut");
     }
@@ -58,10 +58,10 @@ public class GameManager : MonoSingleton<GameManager>
         if (currentLevel == 17)
         {
             currentLevel = 0;
-            musicSource.clip = mainMenu;
-            musicSource.Play();
+            //musicSource.clip = mainMenu;
+            //musicSource.Play();
             //GetComponent<StudioEventEmitter>().Play();
-            //GetComponent<StudioEventEmitter>().SetParameter("state", 0);
+            GetComponent<StudioEventEmitter>().SetParameter("state", 0);
             SceneManager.LoadScene("MainMenu");
             return;
         }

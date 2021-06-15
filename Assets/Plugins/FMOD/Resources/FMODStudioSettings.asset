@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   SwitchSettingsMigration: 1
-  HasSourceProject: 0
-  HasPlatforms: 0
+  HasSourceProject: 1
+  HasPlatforms: 1
   sourceProjectPath: Assets/Music/GMTK_Gamejam/GMTK_Gamejam.fspro
   sourceBankPath: Assets\Music\GMTK_Gamejam\Build
   SourceBankPathUnformatted: 
