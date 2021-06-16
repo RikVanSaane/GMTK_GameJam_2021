@@ -61,7 +61,7 @@ MonoBehaviour:
   heldSpraySR: {fileID: 8028996698320725190}
   fishPrefab: {fileID: 4681587604071870466, guid: 72828617220691846ad4f478f8be7a2d, type: 3}
   sprayClip: {fileID: 8300000, guid: 31c8ee121dadc0d4ab7e5d01fae39cce, type: 3}
-  inventorySwitch: {fileID: 8300000, guid: 39c79592e191d6445a04c3e412ceb32b, type: 3}
+  inventorySwitch: {fileID: 8300000, guid: aed0880df7779e54997a45b508214a8d, type: 3}
 --- !u!212 &8028996698282975829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
   - {x: -0.47995758, y: 0.22697401, z: 0}
   m_ShapePathHash: -193071467
   m_Mesh: {fileID: 0}
-  m_InstanceId: 183522
+  m_InstanceId: 43182
 --- !u!82 &2113996112
 AudioSource:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ AudioSource:
   m_GameObject: {fileID: 8028996698282975830}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7229997874454906033, guid: fb59ef16707793349882312bc0c43b4f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

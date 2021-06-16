@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000029B61A8AC58 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001DA88BB0078 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,151 +15,9 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] SystemI::createSound                     : filename = Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000029AA9E57378 : node = 0000029B613539C0
-[LOG] SystemI::createSound                     : add node to async list : head = 0000029B61D484D8.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029AA9E57378
-[LOG] SystemI::createSound                     :     filename = Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank : mode 02010082
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 4202144
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31072
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029B61353AD0
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSound                     :     setdata soundi = 0000029AA9E59388 : node = 0000029B61353240
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSound                     :     add node to async list : head = 0000029B61D484D8.  list count = 0
-[LOG] SystemI::createSound                     :     filename = Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank : mode 02010082
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     :     setdata soundi = 0000029AA9E57888 : node = 0000029B61355680
-[LOG] SystemI::createSound                     :     add node to async list : head = 0000029B61D484D8.  list count = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='intruments', format=5, channels=2, frequency=48000, lengthbytes=495008, lengthpcm=3616000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.577298.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029AA9E57378
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029AA9E59388
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 4202144
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31072
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029B61353350
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience-30', format=5, channels=2, frequency=48000, lengthbytes=104032, lengthpcm=816184, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.012219.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029AA9E59388
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029AA9E57888
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 4202144
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31072
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029B61355790
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience-33', format=5, channels=2, frequency=48000, lengthbytes=45696, lengthpcm=502633, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.014506.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029AA9E57888
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029B11068B98
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029B11068B98
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] SystemI::createSound                     : filename = Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000029B11069E28 : node = 0000029B613557C0
-[LOG] SystemI::createSound                     : add node to async list : head = 0000029B61D484D8.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029B11069E28
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Music\GMTK_Gamejam\Build\Desktop/Master.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 4202144
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31072
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029B613558D0
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience-09', format=5, channels=2, frequency=48000, lengthbytes=61888, lengthpcm=584346, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.012130.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029B11069E28
-[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
-[LOG] SoundI::release                          :  (0000029AB0188508)
-[LOG] SoundI::release                          :     ambience (0000029B3CFFBEC8)
-[LOG] SoundI::release                          :  (0000029AB0187818)
-[LOG] SoundI::release                          :     ambience-01 (0000029AA0CB38D8)
-[LOG] SoundI::release                          :  (0000029AB0188AC8)
-[LOG] SoundI::release                          :     ambience-02 (0000029AA0CB2078)
-[LOG] SoundI::release                          :  (0000029AB01876A8)
-[LOG] SoundI::release                          :     ambience-03 (0000029AA0CB3738)
-[LOG] SoundI::release                          :  (0000029AB0187538)
-[LOG] SoundI::release                          :     ambience-04 (0000029AA0CB30B8)
-[LOG] SoundI::release                          :  (0000029AB0186C98)
-[LOG] SoundI::release                          :     ambience-05 (0000029AA0CB3598)
-[LOG] SoundI::release                          :  (0000029AB0187AF8)
-[LOG] SoundI::release                          :     ambience-06 (0000029AA0CB2218)
-[LOG] SoundI::release                          :  (0000029AB0187258)
-[LOG] SoundI::release                          :     ambience-07 (0000029AA0CB2D78)
-[LOG] SoundI::release                          :  (0000029AB0188958)
-[LOG] SoundI::release                          :     ambience-12 (0000029AA0CB2BD8)
-[LOG] SoundI::release                          : ambience-33 (0000029AA9E57888)
-[LOG] SoundI::release                          :     ambience-33 (0000029B11858BD8)
-[LOG] SoundI::release                          :     ambience-33 (0000029B11068EF8)
-[LOG] SoundI::release                          : ambience-30 (0000029AA9E59388)
-[LOG] SoundI::release                          :     ambience-30 (0000029A4E551DA8)
-[LOG] SoundI::release                          :     ambience-30 (0000029B11068328)
-[LOG] SoundI::release                          : ambience-09 (0000029B11069E28)
-[LOG] SoundI::release                          :     ambience-09 (0000029AA10319A8)
-[LOG] SoundI::release                          :     ambience-09 (0000029B1106A4E8)
-[LOG] SoundI::release                          : intruments (0000029AA9E57378)
-[LOG] SoundI::release                          :     intruments (0000029A4DB8A188)
-[LOG] SoundI::release                          :     intruments (0000029B11068B98)
-[LOG] SoundI::release                          : MainMenu (0000029AA9E582A8)
-[LOG] SoundI::release                          :     MainMenu (0000029B3CFFACE8)
-[LOG] SoundI::release                          :     MainMenu (0000029AA9E5DC18)
-[LOG] SoundI::release                          :  (0000029AB0187988)
-[LOG] SoundI::release                          :     ambience-13 (0000029AA0CB3C18)
-[LOG] SoundI::release                          :  (0000029AB0187C68)
-[LOG] SoundI::release                          :     ambience-15 (0000029B3CFF9148)
-[LOG] SoundI::release                          :  (0000029AB0188398)
-[LOG] SoundI::release                          :     ambience-16 (0000029AA0CB23B8)
-[LOG] SoundI::release                          :  (0000029AB0186F78)
-[LOG] SoundI::release                          :     ambience-17 (0000029AA0CB26F8)
-[LOG] SoundI::release                          :  (0000029AB01887E8)
-[LOG] SoundI::release                          :     ambience-35 (0000029AA0CB3DB8)
-[LOG] Thread::callback                         : FMOD Studio update thread finished.
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] SystemI::close                           : Closed.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] SystemI::close                           : Closed.
-[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
-[LOG] Thread::callback                         : FMOD file thread finished.

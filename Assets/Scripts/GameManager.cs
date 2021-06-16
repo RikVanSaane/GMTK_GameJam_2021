@@ -4,14 +4,19 @@ using UnityEngine;
 using TRKGeneric;
 using UnityEngine.SceneManagement;
 using FMODUnity;
+using UnityEngine.Audio;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    public int currentLevel;
+    public float musicVolume;
+    public float sfxVolume;
+
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioClip mainMenu;
     [SerializeField] private AudioClip ingame;
     [SerializeField] private AudioClip endgame;
-    public int currentLevel;
+    [SerializeField] private AudioMixer mainMixer;
 
     private void OnLevelWasLoaded()
     {
@@ -30,13 +35,13 @@ public class GameManager : MonoSingleton<GameManager>
     public void LoadNextCutScene()
     {
         currentLevel++;
-        if(currentLevel == 3)
+        if (currentLevel == 3)
         {
             //musicSource.clip = ingame;
             //musicSource.Play();
             GetComponent<StudioEventEmitter>().SetParameter("state", 1);
         }
-        
+
         StartFadeToNextLevel();
     }
     public void StartFadeToNextLevel()
@@ -69,9 +74,9 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public void LoadOptionsScene()
-	{
+    {
         SceneManager.LoadScene("OptionsMenu");
-	}
+    }
 
     public void LoadCreditsScene()
     {
@@ -79,12 +84,22 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public void LoadMainMenu()
-	{
+    {
         SceneManager.LoadScene("MainMenu");
-	}
+    }
 
     public void LoadSceneWithName(string sceneName)
-	{
+    {
         SceneManager.LoadScene(sceneName);
+    }
+    public void SetMusicVolume(float value)
+    {
+        musicVolume = value;
+        GetComponent<StudioEventEmitter>().SetParameter("Volume", value);
+    }
+    public void SetSFXVolume(float value)
+    {
+        sfxVolume = value;
+        mainMixer.SetFloat("SFXVolume", value);
     }
 }

@@ -52,6 +52,7 @@ MonoBehaviour:
   mainMenu: {fileID: 8300000, guid: 3a5df0fadfd5e2744ae2fe1ea88d238e, type: 3}
   ingame: {fileID: 8300000, guid: e1f95d46fa56c734a83493f011a5debc, type: 3}
   endgame: {fileID: 8300000, guid: 8c99744454cacaa46a82de8983433607, type: 3}
+  mainMixer: {fileID: 24100000, guid: fb59ef16707793349882312bc0c43b4f, type: 2}
   currentLevel: 0
 --- !u!95 &1527894330
 Animator:

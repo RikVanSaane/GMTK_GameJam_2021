@@ -39,7 +39,7 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637593864097784602
+  lastModified: 637593904873905051
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-5720134474101516847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,11 +78,11 @@ MonoBehaviour:
   Path: Assets/Music/GMTK_Gamejam/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637593864097794570
+  lastModified: 637593904873925243
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 794
+    Value: 844
   Exists: 1
 --- !u!114 &-1633500052717360506
 MonoBehaviour:
@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: -7643978609014808190}
   StringsBanks:
   - {fileID: -5720134474101516847}
-  stringsBankWriteTime: 637593864097794570
+  stringsBankWriteTime: 637593904873925243
   cacheVersion: 6
 --- !u!114 &2717605866952639867
 MonoBehaviour:
@@ -168,6 +168,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &3445321317024694529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LevelMusic/state
+  m_EditorClassIdentifier: 
+  Name: state
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &3451490354262295636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,10 +208,31 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -6880226246515243762}
+  - {fileID: 3445321317024694529}
+  - {fileID: 4660452298043235176}
   MinDistance: 0
   MaxDistance: 0
-  Length: 144000
+  Length: 211906
+--- !u!114 &4660452298043235176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LevelMusic/Volume
+  m_EditorClassIdentifier: 
+  Name: Volume
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &8860607916238174806
 MonoBehaviour:
   m_ObjectHideFlags: 0
